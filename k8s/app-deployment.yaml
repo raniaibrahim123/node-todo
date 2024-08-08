@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node-js
+        image: raniaibrahimaziz/todo-app:v1.0
+        env:
+        - name: MONGO_HOST
+          value: mongo
+        - name: MONGO_USER
+          valueFrom:
+            secretKeyRef:
+              name: mongo
+              key: user
+        - name: MONGO_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mongo
+              key: pass

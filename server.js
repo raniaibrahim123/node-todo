@@ -5,6 +5,9 @@ var mongoose = require('mongoose'); 					// mongoose for mongodb
 var port  	 = process.env.PORT || 8080; 				// set the port
 var database = require('./config/database'); 			// load the database config
 
+var cors = require('cors')
+
+var app = express()
 // configuration ===============================================================
 mongoose.connect(database.url); 	// connect to mongoDB database on modulus.io
 
@@ -13,6 +16,7 @@ app.configure(function() {
 	app.use(express.logger('dev')); 						// log every request to the console
 	app.use(express.bodyParser()); 							// pull information from html in POST
 	app.use(express.methodOverride()); 						// simulate DELETE and PUT
+	app.use(cors({credentials: true, origin: ['*','http://localhost:8080', 'http://localhost:80', 'http://18.170.214.65:8080']}));
 });
 
 // routes ======================================================================
