@@ -35,7 +35,4 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo -i
-            cd node-todo
-            export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-            helm upgrade --install rania todo-app/ --set image=${{ secrets.DOCKERHUB_USERNAME }}/todo-app:${{ github.ref_name }}
+            sudo helm --kubeconfig /etc/rancher/k3s/k3s.yaml upgrade --install rania node-todo/todo-app/ --set image=${{ secrets.DOCKERHUB_USERNAME }}/todo-app:${{ github.ref_name }}
