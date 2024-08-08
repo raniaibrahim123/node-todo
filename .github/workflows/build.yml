@@ -29,14 +29,13 @@ jobs:
     needs: build-and-push
     steps:
       - name: Set up SSH
-        uses: appleboy/ssh-action@v0.2.1
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_SERVER_IP }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Helm install
-        run: |
-          sudo -i
-          cd node-todo
-          export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-          helm upgrade --install rania todo-app/ --set image=${{ secrets.DOCKERHUB_USERNAME }}/todo-app:${{ github.ref_name }}
+          script: |
+            sudo -i
+            cd node-todo
+            export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+            helm upgrade --install rania todo-app/ --set image=${{ secrets.DOCKERHUB_USERNAME }}/todo-app:${{ github.ref_name }}
