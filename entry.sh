@@ -5,5 +5,4 @@ module.exports = {
         url : 'mongodb://$MONGO_USER:$MONGO_PASS@$MONGO_HOST:27017/'
 };
 EOF
-sleep 1000000
 node server.js
